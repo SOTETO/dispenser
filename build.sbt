@@ -1,5 +1,5 @@
 name := """dispenser"""
-organization := "com.example"
+organization := "net.soteto"
 
 version := Option(System.getProperty("version")).getOrElse("0.4.15")
 //version := "0.2.3"
@@ -11,6 +11,7 @@ scalaVersion := "2.12.6"
 //resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 //resolvers += "Sonatype OSS Staging" at "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/"
+resolvers += Resolver.jcenterRepo
 
 libraryDependencies += guice
 libraryDependencies += ehcache
@@ -35,12 +36,14 @@ includeFilter in (Assets, LessKeys.less) := "*.less"
 excludeFilter in (Assets, LessKeys.less) := "_*.less"
 
 //Docker
-maintainer in Docker := "Dennis Kleber"
+maintainer in Docker := "Johann Sell"
 dockerExposedPorts := Seq(9000, 9443)
-dockerRepository := Some("vivaconagua")
+//dockerRepository := Some("soteto")
+dockerUsername := Some("soteto")
+dockerUpdateLatest := true
 routesGenerator := InjectedRoutesGenerator
-version in Docker := "develop"
-
+packageName in Docker := packageName.value
+version in Docker := version.value
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.example.controllers._"
